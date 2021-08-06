@@ -1,8 +1,8 @@
-const fetchData = async (searchTerm) => {
+const fetchData = async searchTerm => {
   const response = await axios.get('http://www.omdbapi.com/', {
     params: {
-      apikey: '8993b35f',
-      s: searchTerm,
+      apikey: 'd9835cc5',
+      s: searchTerm
     }
   });
 
@@ -16,25 +16,19 @@ const fetchData = async (searchTerm) => {
 createAutoComplete({
   root: document.querySelector('.autocomplete'),
   renderOption(movie) {
-    const imgSrc = movie.Poster === "N/A" ? '' : movie.Poster;
+    const imgSrc = movie.Poster === 'N/A' ? '' : movie.Poster;
     return `
       <img src="${imgSrc}" />
       ${movie.Title} (${movie.Year})
     `;
-  },
-  onOptionSelect(movie) {
-    onMovieSelect(movie);
-  },
-  inputValue(movie) {
-    return movie.Title;
   }
 });
 
 const onMovieSelect = async movie => {
   const response = await axios.get('http://www.omdbapi.com/', {
     params: {
-      apikey: '8993b35f',
-      i: movie.imdbID,
+      apikey: 'd9835cc5',
+      i: movie.imdbID
     }
   });
 
@@ -43,7 +37,7 @@ const onMovieSelect = async movie => {
 
 const movieTemplate = movieDetail => {
   return `
-    <article class="media>"
+    <article class="media">
       <figure class="media-left">
         <p class="image">
           <img src="${movieDetail.Poster}" />
@@ -63,7 +57,7 @@ const movieTemplate = movieDetail => {
     </article>
     <article class="notification is-primary">
       <p class="title">${movieDetail.BoxOffice}</p>
-      <p class="subtitle">BoxOffice</p>
+      <p class="subtitle">Box Office</p>
     </article>
     <article class="notification is-primary">
       <p class="title">${movieDetail.Metascore}</p>
@@ -77,5 +71,5 @@ const movieTemplate = movieDetail => {
       <p class="title">${movieDetail.imdbVotes}</p>
       <p class="subtitle">IMDB Votes</p>
     </article>
-  `
+  `;
 };
